@@ -23,9 +23,9 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     };
 
     if (isProfile) {
-      fetchPosts(`http://localhost:5000/posts/${userId}/posts`);
+      fetchPosts(`https://business-top-2.onrender.com/posts/${userId}/posts`);
     } else {
-      fetchPosts("http://localhost:5000/posts");
+      fetchPosts("https://business-top-2.onrender.com/posts");
     }
   }, [isProfile, userId, token, dispatch]); // Dependencies include token and dispatch
 
