@@ -80,23 +80,32 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("https://business-top-2.onrender.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
-      );
-      navigate("/home");
+    try {
+        const loggedInResponse = await fetch("http://localhost:5000/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+        });
+
+        if (!loggedInResponse.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const loggedIn = await loggedInResponse.json();
+        onSubmitProps.resetForm();
+        if (loggedIn) {
+            dispatch(setLogin({
+                user: loggedIn.user,
+                token: loggedIn.token,
+            }));
+            navigate("/home");
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        // You can also set an error state here to show a message to the user
     }
-  };
+};
+
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) await login(values, onSubmitProps);

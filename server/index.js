@@ -18,6 +18,12 @@ import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
 
+const cors = require("cors");
+
+app.use(cors({
+  origin: "https://business-top-2.onrender.com" // Adjust this to match your client-side URL
+}));
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
